@@ -4,7 +4,7 @@ use PDO, Exception;
 
 abstract class Banco {
     private static string $servidor = "localhost";
-    private static string $usuario = "root";
+    private static string $usuarios = "root";
     private static string $senha = "";
     private static string $banco = "microblog_rodrigo";
     private static PDO $conexao; 
@@ -15,7 +15,7 @@ abstract class Banco {
                 "mysql:host=".self::$servidor."; 
                 dbname=".self::$banco.";
                 charset=utf8",
-                self::$usuario, 
+                self::$usuarios,
                 self::$senha
             );
             self::$conexao->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
