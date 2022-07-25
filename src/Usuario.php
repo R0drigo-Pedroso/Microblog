@@ -15,6 +15,7 @@ final class Usuario {
         $this->conexao = Banco::conecta();
     }
 
+    // Listar usuarios
     public function lista():array {
         $sql = "SELECT id, nome, email, tipo FROM usuarios ORDER BY nome";
 
@@ -29,7 +30,9 @@ final class Usuario {
 
         return $resultado;
     }
+    // Final listar usuarios
     
+    // Inserir Usuario
     public function inserir () {
         $sql = "INSERT INTO usuarios(nome, email, senha, tipo) 
         VALUES(:nome, :email, :senha, :tipo)";
@@ -46,13 +49,66 @@ final class Usuario {
             echo ("Erro" .$erro->getMessage());
         }
     }
+    // Final Inserir Usuarios
     
+    // Usuario
+    public function listarUm():array {
+        $sql = "SELECT * FROM usuarios WHERE id = :id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":id", $this->id, PDO::PARAM_STR);
+            $consulta->execute();
+
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die ("Erro: ". $erro->getMessage());
+        }
+
+        return $resultado;
+    }
+    // Final usuarios
 
     // Codificar senha
     public function codificaSenha(string $senha):string {
         return password_hash($senha, PASSWORD_DEFAULT);
     }
 
+    // Verificar senha
+    public function verificaSenha(string $senhaFormulario, string $senhaBanco):string {
+        
+        /* Usamos a password_verify para COMPARAR as duas senhas: a digitada no formulario e a existente no banco */
+        if (password_verify($senhaFormulario, $senhaBanco)) {
+
+            /* Se forem iguais, mantemos a senha existente no banco */
+            return $senhaBanco;
+        } else {
+
+            /* se forem diferentes, então codificamos esta nova senha */
+            return $this->codificaSenha($senhaFormulario);
+        }
+    }
+    // Final Verificar senha
+    // final codificar senha
+
+    // Atualizar Usuarios para Troca Nome, email, e opções
+    public function atualizar():void {
+        $sql = "UPDATE usuarios SET nome = :nome, email = :email, senha = :senha, tipo = :tipo WHERE id = :id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":nome", $this->nome, PDO::PARAM_STR);
+            $consulta->bindParam(":email", $this->email, PDO::PARAM_STR);
+            $consulta->bindParam(":senha", $this->senha, PDO::PARAM_STR);
+            $consulta->bindParam(":tipo", $this->tipo, PDO::PARAM_STR);
+            $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+
+        } catch (Exception $erro) {
+            die ("Erro: ". $erro->getMessage());
+        }
+    }
+    // Final Atualizar Usuarios para Troca Nome, email, e opções
 
     // Getters e Setters
     // E sanitizar os sets
@@ -127,4 +183,16 @@ final class Usuario {
 }
 
 
+// Excluir um Fabricante
+function excluirUsuario(PDO $conexao, int $id):void {
+    $sql = "DELETE FROM produtos WHERE id = :id";
 
+    try {
+        $consulta = $conexao -> prepare($sql);
+        $consulta -> bindParam(':id', $id, PDO::PARAM_INT);
+        $consulta -> execute();
+    } catch (Exception $erro) {
+        die ("Erro: " .$erro -> getMessage());
+    }
+
+}
