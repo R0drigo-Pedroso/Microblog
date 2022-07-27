@@ -2,12 +2,10 @@
 
 require_once "../vendor/autoload.php";
 
-use Microblog\Usuarios;
+use Microblog\Usuario;
 
 $usuario = new Usuario;
-
-$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-excluirUsuario($conexao, $id);
+$usuario ->setId($_GET['id']);
+$usuario ->excluirUsuario();
 
 header('Location:usuarios.php');
