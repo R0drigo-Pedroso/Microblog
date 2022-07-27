@@ -1,8 +1,13 @@
 <?php 
 
+
 require_once "../vendor/autoload.php";
 
+use Microblog\ControleDeAcesso;
 use Microblog\Usuario;
+
+$sessao = new ControleDeAcesso();
+$sessao->verificaAcesso();
 
 // Instanciar o objeto Usuario = $usuario
 $usuario = new Usuario; // Não esqueça do autoload e do namespace
