@@ -21,10 +21,18 @@ final class ControleDeAcesso {
 
             /*Então significa que o usuario não está logado, portanto apague qualquer resquicio de sessão e force o usuario a ir para login.php*/
             session_destroy();
-            header('Location:../login.php?Acesso_proibido');
-            die();
+            header('Location:../login.php?acesso_proibido');
+            exit;
         }
     }
+
+    /*Login*/
+    public function login(int $id, string $nome, string $tipo):void {
+        /*No momento em que ocorrer o login, adicionamos à sessão variáveis de sessão contendo os dados necessarios para o sistema */
+        $_SESSION['id'] = $id;
+        $_SESSION['nome'] = $nome;
+        $_SESSION['tipo'] = $tipo;
+    } 
 }
 
 

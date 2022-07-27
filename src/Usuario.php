@@ -32,6 +32,36 @@ final class Usuario {
     }
     // Final listar usuarios
     
+    // Excluir um Usuario
+    function excluirUsuario():void {
+        $sql = "DELETE FROM usuarios WHERE id = :id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta ->bindParam("id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+        } catch (Exception $erro) {
+            die ("Erro: " .$erro -> getMessage());
+        }
+    }
+    // Final excluirUsuario
+
+    // Buscar usuario
+    public function buscar() {
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":email", $this->email, PDO::PARAM_STR);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die ("Erro: " .$erro -> getMessage());
+        }
+        return $resultado;
+    }
+    // Final buscar usuarios
+
     // Inserir Usuario
     public function inserir () {
         $sql = "INSERT INTO usuarios(nome, email, senha, tipo) 
@@ -182,18 +212,6 @@ final class Usuario {
     }
 
 
-// Excluir um Fabricante
-function excluirUsuario():void {
-    $sql = "DELETE FROM usuarios WHERE id = :id";
 
-    try {
-        $consulta = $this->conexao->prepare($sql);
-        $consulta ->bindParam("id", $this->id, PDO::PARAM_INT);
-        $consulta->execute();
-    } catch (Exception $erro) {
-        die ("Erro: " .$erro -> getMessage());
-    }
-
-}
 
 }
