@@ -15,7 +15,7 @@ if(isset($_GET['acesso_proibido'])){
 	$feedback = "Usuário não encontrado.";
 }elseif(isset($_GET['senha_incorreta'])){
 	$feedback = "Senha incorreta!.";
-} elseif(isset($_GET['lougout'])){
+} elseif(isset($_GET['logout'])){
 	$feedback = "Você foi deslogado com sucesso.";
 }
 
@@ -70,7 +70,7 @@ if(isset($_GET['acesso_proibido'])){
 				if(password_verify($_POST['senha'], $dados['senha'])){
 					$sessao = new ControleDeAcesso();
 					$sessao ->login($dados['id'], $dados['nome'], $dados['tipo']);
-					header("<Location:admin/index.php");
+					header("Location:admin/index.php");
 				} else {
 					header("location:login.php?senha_incorreta");
 				}
