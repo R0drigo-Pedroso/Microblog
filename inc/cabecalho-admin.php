@@ -13,6 +13,8 @@ $sessao -> verificaAcesso();
 // Se o parâmetro sair ?sair for passado na URL, então fazemos o logout
 if(isset($_GET['sair'])) $sessao->logout();
 
+
+
 $pagina = basename($_SERVER['PHP_SELF']);
 ?>
 <!DOCTYPE html>
@@ -40,21 +42,28 @@ $pagina = basename($_SERVER['PHP_SELF']);
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        
             <li class="nav-item">
                 <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="meu-perfil.php">Meu perfil</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="categorias.php">Categorias</a>
-            </li>
+            
+            <?php if( $_SESSION ==='admin') { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="categorias.php">Categorias</a>
+                </li>
+            
+                <li class="nav-item">
+                    <a class="nav-link" href="usuarios.php">Usuários</a>
+                </li>
+            <?php } ?>
+
             <li class="nav-item">
                 <a class="nav-link" href="noticias.php">Notícias</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="usuarios.php">Usuários</a>
             </li>
 
             <li class="nav-item">
@@ -64,8 +73,8 @@ $pagina = basename($_SERVER['PHP_SELF']);
                 <a class="nav-link fw-bold" href="?sair"> <i class="bi bi-x-circle"></i> Sair</a>
             </li>
         </ul>
-
     </div>
+    
   </div>
 </nav>
 
@@ -73,5 +82,4 @@ $pagina = basename($_SERVER['PHP_SELF']);
 
 <main class="flex-shrink-0">
     <div class="container">
-
     
