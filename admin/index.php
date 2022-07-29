@@ -18,15 +18,15 @@ require_once "../inc/cabecalho-admin.php";
             </a>
 
             <?php if ($_SESSION['tipo'] == 'admin') { ?>
-			<a class="btn btn-dark bg-gradient btn-lg" href="categorias.php">
-                <i class="bi bi-tags"></i> <br>
-                Categorias
-            </a>
+                <a class="btn btn-dark bg-gradient btn-lg" href="categorias.php">
+                    <i class="bi bi-tags"></i> <br>
+                    Categorias
+                </a>
 
-            <a class="btn btn-dark bg-gradient btn-lg" href="usuarios.php">
-                <i class="bi bi-people"></i> <br>
-                Usuários
-            </a>
+                <a class="btn btn-dark bg-gradient btn-lg" href="usuarios.php">
+                    <i class="bi bi-people"></i> <br>
+                    Usuários
+                </a>
             <?php } ?>
 
             <a class="btn btn-dark bg-gradient btn-lg" href="noticias.php">
