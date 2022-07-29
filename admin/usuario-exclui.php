@@ -8,6 +8,7 @@ use Microblog\Usuario;
 
 $sessao = new ControleDeAcesso();
 $sessao->verificaAcesso();
+$sessao->verificaAcessoAdmin();
 
 // Instanciar o objeto Usuario = $usuario
 $usuario = new Usuario; // Não esqueça do autoload e do namespace

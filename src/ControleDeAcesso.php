@@ -41,6 +41,13 @@ final class ControleDeAcesso {
         exit;
     }
 
+    public function verificaAcessoAdmin():void{
+        if($_SESSION['tipo'] != 'admin'){
+            header('Location:nao-autorizado.php');
+            exit;
+        }
+    }
+
 
 }
 

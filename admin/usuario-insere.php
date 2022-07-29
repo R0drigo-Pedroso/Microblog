@@ -1,8 +1,9 @@
 <?php 
-
+require_once "../inc/cabecalho-admin.php";
 use Microblog\Usuario;
 
-require_once "../inc/cabecalho-admin.php";
+$sessao->verificaAcessoAdmin();
+
 
 if (isset($_POST["inserir"])){
 	$usuario = new Usuario;
