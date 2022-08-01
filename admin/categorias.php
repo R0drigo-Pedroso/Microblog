@@ -1,8 +1,14 @@
-<?php 
+<?php
+
+use Microblog\Categorias;
+
 require_once "../inc/cabecalho-admin.php";
 
 $sessao->verificaAcessoAdmin();
 
+
+$categotias = new Categorias();
+$listaCategorias = $categotias->lista();
 
 ?>
 
@@ -11,7 +17,7 @@ $sessao->verificaAcessoAdmin();
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
 		<h2 class="text-center">
-		Categorias <span class="badge bg-dark">X</span>
+		Categorias <span class="badge bg-dark"><?=count($listaCategorias)?></span>
 		</h2>
 
 		<p class="text-center mt-5">
@@ -32,8 +38,10 @@ $sessao->verificaAcessoAdmin();
 
 				<tbody>
 
+				<?php foreach ($listaCategorias as $categoria) { ?>
 					<tr>
-						<td> Nome... </td>
+					<td><?=$categoria['nome']?></td>
+						
 						<td class="text-center">
 							<a class="btn btn-warning" 
 							href="categoria-atualiza.php">
@@ -41,11 +49,12 @@ $sessao->verificaAcessoAdmin();
 							</a>
 						
 							<a class="btn btn-danger excluir" 
-							href="categoria-exclui.php">
+							href="categoria-exclui.php?id=<?=$categoria['id']?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
 						</td>
 					</tr>
+				<?php } ?>
 
 				</tbody>                
 			</table>
