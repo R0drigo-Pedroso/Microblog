@@ -56,11 +56,6 @@ final class Noticia {
 
     
 
-    /**
-     * Get the value of id
-     *
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
