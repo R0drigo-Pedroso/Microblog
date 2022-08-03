@@ -212,6 +212,9 @@ final class Usuario {
     }
 
 
-
-
+    // Final Getters e Setters
+    public function getConexao(): PDO
+    {
+        return $this->conexao;
+    }
 }
