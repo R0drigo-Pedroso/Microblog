@@ -71,6 +71,24 @@ public function lista():array {
 }
 // Final listar Categorias
 
+    // Lista uma categorias
+    public function listarUm():array {
+        $sql = "SELECT * FROM categorias WHERE id = :id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":id", $this->id, PDO::PARAM_STR);
+            $consulta->execute();
+
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die ("Erro: ". $erro->getMessage());
+        }
+
+        return $resultado;
+    }
+    // Final Lista uma Categorias
+
 // Excluir um Categorias
 function excluirCategorias():void {
     $sql = "DELETE FROM categorias WHERE id = :id";
@@ -85,4 +103,19 @@ function excluirCategorias():void {
 }
 // Final excluir Categorias
 
+// Atualizar Categorias
+    public function atualizarCategorias():void {
+        $sql = "UPDATE categorias SET nome = :nome WHERE id = :id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":nome", $this->nome, PDO::PARAM_STR);
+            $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+
+        } catch (Exception $erro) {
+            echo ("Erro" .$erro->getMessage());
+        }
+    }
+    // Final Atualizar Categorias
 }

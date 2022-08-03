@@ -44,7 +44,7 @@ $listaCategorias = $categotias->lista();
 						
 						<td class="text-center">
 							<a class="btn btn-warning" 
-							href="categoria-atualiza.php">
+							href="categoria-atualiza.php?id=<?=$categoria['id']?>">
 							<i class="bi bi-pencil"></i> Atualizar
 							</a>
 						
