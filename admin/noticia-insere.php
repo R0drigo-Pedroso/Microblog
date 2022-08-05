@@ -22,8 +22,20 @@ if(isset($_POST['inserir'])){
 	/* Aplicamos o id do usuário logado na sessão à propriedade id da classe/objeto Usuario */
 	$noticia->usuario->setId($_SESSION['id']);
 
-	Utilitarios::dump($noticia);
+
+	// Capturando os dados do arquivo enviado
+	$imagem = $_FILES['imagem'];
+
+	// Enviamos para o setter (e para o banco) SOMENTE a parte que se refere ao nome/extensão do arquivo
+	$noticia->setImagem($imagem['name']);
+
+	// Função upload (responsavel por pegar o arquivo inteiro e enviar para o HD do servidor)
+	$noticia->upload($imagem);
+
+
+	Utilitarios::dump($imagem);
 }
+
 ?>
 
 
@@ -34,7 +46,7 @@ if(isset($_POST['inserir'])){
 		Inserir nova notícia
 		</h2>
 				
-		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir">
+		<form enctype="multipart/form-data" class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir">
 
             <div class="mb-3">
                 <label class="form-label" for="categoria">Categoria:</label>

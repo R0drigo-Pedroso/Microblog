@@ -51,7 +51,39 @@ final class Noticia {
             $consulta->execute();
         } catch (Exception $erro) {
             die("Erro: ".$erro->getMessage());
-        } 
+        }
+    }
+
+    // fazendo uploud de imagem
+    public function upload(array $arquivo) {
+            
+        // definindo os formatos aceitos
+        $tiposValidos = [
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "image/svg+xml"
+        ];
+
+        if(!in_array($arquivo['type'], $tiposValidos)){
+            exit("  <script>
+                        alert('Formato de arquivo inválido');
+                        history.back();
+                    </script>");
+            } 
+
+        // Acessar apenas nome do arquivo
+        $nome = $arquivo['name'];
+
+        // Acessando os dados de acesso temporário do arquivo
+        $temporario = $arquivo['tmp_name'];
+
+        // Definindo a pasta de destino junto com nome do arquivo
+        $destino = "../imagem/".$nome;
+
+        // Usamos a função abaixo para pegar da área temporiária e enviar para a pasta de destino (com o nome do arquivo)
+        move_uploaded_file($temporario, $destino);
+
     }
 
     
