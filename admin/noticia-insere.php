@@ -26,14 +26,15 @@ if(isset($_POST['inserir'])){
 	// Capturando os dados do arquivo enviado
 	$imagem = $_FILES['imagem'];
 
-	// Enviamos para o setter (e para o banco) SOMENTE a parte que se refere ao nome/extensão do arquivo
-	$noticia->setImagem($imagem['name']);
 
 	// Função upload (responsavel por pegar o arquivo inteiro e enviar para o HD do servidor)
 	$noticia->upload($imagem);
 
+	// Enviamos para o setter (e para o banco) SOMENTE a parte que se refere ao nome/extensão do arquivo
+	$noticia->setImagem($imagem['name']);
 
-	Utilitarios::dump($imagem);
+	$noticia->inserir();
+	header("location:noticias.php");
 }
 
 ?>

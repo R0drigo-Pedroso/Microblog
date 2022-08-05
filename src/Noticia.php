@@ -32,7 +32,7 @@ final class Noticia {
     }
 
     public function inserir():void {
-        $sql = "INSERT INTO noticias(titulo, texto, resumo, imagem, destaque, usuario_id, categotia_id) VALUES(:titulo, :texto, :resumo, :imagem, :destaque, :usuario_id, :categotia_id)";
+        $sql = "INSERT INTO noticias(titulo, texto, resumo, imagem, destaque, usuario_id, categoria_id) VALUES(:titulo, :texto, :resumo, :imagem, :destaque, :usuario_id, :categoria_id)";
 
         try {
             $consulta = $this->conexao->prepare($sql);
@@ -44,7 +44,7 @@ final class Noticia {
             
             /* Aqui, primeiro chamamos o getters de ID a partir do objeto/classe de Usuario. E só depois atribuimos ele ao parâmetro :usuario_id usando para isso o bindValue. 
             Obs: bindParam pode ser usado, mas há riscos de erro devido a forma como ele é executado pelo PHP. por isso, recomenda-se o uso do bindValue em situações como essa. */
-            $consulta->bindValue(":categotia_id", $this->categoriaId, PDO::PARAM_INT);
+            $consulta->bindValue(":categoria_id", $this->categoriaId, PDO::PARAM_INT);
                         
             $consulta->bindParam(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
 
