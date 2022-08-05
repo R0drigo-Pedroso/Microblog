@@ -86,6 +86,21 @@ final class Noticia {
 
     }
 
+    public function listar():array {
+
+        /* Se o tipo de usuario for admin  */
+        if($this->usuario->getTipo() == 'admin'){
+        
+            /* Então ele poderá acessar as noticias de todos */
+            $sql = "";
+        }else{
+
+            /*Senão (ou seja, é um editor), este usuário (editor) poderá aessar SOMENTE suas próprias noticias */
+
+            $sql = "";
+        }
+    }
+
     
 
     public function getId(): int
