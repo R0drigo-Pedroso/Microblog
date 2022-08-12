@@ -12,4 +12,11 @@ abstract class Utilitarios {
         return date("d/m/Y H:i", strtotime($dados));
     }
 
+    // @autor: Marcelo - limitador de Caracteres
+    public static function limitaCaracter($dados) {
+        return mb_strimwidth($dados, 0, 20, " ...");
+    }
+
 }
+
+// 11 960842377
