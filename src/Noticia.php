@@ -272,7 +272,7 @@ final class Noticia {
     public function listaPorCategoria() {
         $sql = "SELECT noticias.id, noticias.titulo, noticias.data, noticias.resumo,
                         usuarios.nome AS autor, 
-                        categoria.nome AS categoria 
+                        categorias.nome AS categoria 
         
                 FROM noticias 
                     LEFT JOIN usuarios ON noticias.usuario_id
