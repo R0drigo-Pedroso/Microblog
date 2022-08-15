@@ -17,6 +17,9 @@ abstract class Utilitarios {
         return mb_strimwidth($dados, 0, 20, " ...");
     }
 
+    // Formata texto
+    public function formataTexto (string $texto):string {
+        return nl2br($texto);
+    }
 }
 
-// 11 960842377

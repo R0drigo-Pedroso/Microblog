@@ -118,7 +118,6 @@ final class Noticia {
         return $resultado;
     }
 
-
     // Lista Um
     public function listarUm():array {
 
@@ -214,7 +213,87 @@ final class Noticia {
         }
     }
         
-        public function getId(): int
+
+
+    /* Area Publica */
+
+    /* Métodos para a área pública do site */
+    public function listarDestaques():array{
+        $sql = "SELECT titulo, imagem, resumo, id FROM noticias WHERE destaque = :destaque ORDER BY data DESC";
+        
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":destaque", $this->destaque, PDO::PARAM_STR);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch(Exception $erro){
+                die("Erro: ".$erro->getMessage());
+        }
+
+        return $resultado;
+    }
+
+    // Listar todas noticias
+
+    public function listarTodas():array {
+        $sql = "SELECT titulo, data, resumo, id FROM noticias ORDER BY data DESC";
+        
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch(Exception $erro){
+                die("Erro: ".$erro->getMessage());
+        }
+
+        return $resultado;
+    }
+
+    // Listar noticias detalhada
+
+    public function listaDetalhes() {
+        $sql = "SELECT noticias.id, noticias.titulo, noticias.data, noticias.texto, noticias.imagem, 
+        usuarios.nome AS autor FROM noticias 
+        LEFT JOIN usuarios ON noticias.usuario_id = usuarios.id 
+        WHERE noticias.id = :id";
+        
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch(Exception $erro){
+                die("Erro: ".$erro->getMessage());
+        }
+
+        return $resultado;
+    }
+    
+    public function listaPorCategoria() {
+        $sql = "SELECT noticias.id, noticias.titulo, noticias.data, noticias.resumo,
+                        usuarios.nome AS autor, 
+                        categoria.nome AS categoria 
+        
+                FROM noticias 
+                    LEFT JOIN usuarios ON noticias.usuario_id
+                    INNER JOIN categorias ON noticias.categoria_id = categorias.id 
+                WHERE noticias.categoria_id = :categoria.id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":categoria.id", $this->categoriaId, PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch(Exception $erro){
+                die("Erro: ".$erro->getMessage());
+        }
+
+        return $resultado;
+    }
+
+
+    // Aplicações de Getters e Setters
+    public function getId(): int
     {
         return $this->id;
     }
