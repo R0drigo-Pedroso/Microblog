@@ -396,7 +396,7 @@ final class Noticia {
     }
 
     
-    public function getTermo()
+    public function getTermo(): string
     {
         return $this->termo;
     }

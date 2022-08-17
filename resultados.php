@@ -15,7 +15,7 @@ $resultados = $noticia->busca();
             Você procurou por <span class="badge bg-dark"><?=$noticia->getTermo()?></span> e
             obteve <span class="badge bg-info"><?=count($resultados)?></span> resultados
         </h2>
-    
+        
         <?php foreach($resultados as $resultado) { ?>
             <div class="col-12 my-1">
                 <article class="card">
