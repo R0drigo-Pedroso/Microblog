@@ -11,6 +11,7 @@ final class Noticia {
     private string $imagem;
     private string $destaque;
     private int $categoriaId;
+    private string $termo;
 
     /* Crianado uma propriedade do tipo usuario, ou seja, apartir de uma class que criando com objetivo de reutilizar recusos dela
     Isso permitirá fazer uma ASSOCIAÇÃO entre Classes.
@@ -293,6 +294,26 @@ final class Noticia {
     }
 
 
+    // Busca por palavra chave
+    public function busca():array {
+        $sql = "SELECT titulo, data, resumo, id FROM noticias
+                    WHERE 
+                        titulo LIKE :termo OR
+                        texto LIKE :termo OR
+                        resumo LIKE :termo
+                    ORDER BY data DESC";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":termo", '%'.$this->termo.'%', PDO::PARAM_STR);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch(Exception $erro){
+                die("Erro: ".$erro->getMessage());
+        }
+        return $resultado;
+    }
+
     // Aplicações de Getters e Setters
     public function getId(): int
     {
@@ -372,5 +393,17 @@ final class Noticia {
     {
         $this->categoriaId = filter_var($categoriaId, FILTER_SANITIZE_NUMBER_INT);
         return $this;
+    }
+
+    
+    public function getTermo()
+    {
+        return $this->termo;
+    }
+
+    public function setTermo(string $termo)
+    {
+        $this->termo = filter_var($termo, FILTER_SANITIZE_SPECIAL_CHARS);
+
     }
 }
