@@ -1,10 +1,13 @@
 <?php
 
 use Microblog\Categorias;
+use Microblog\Noticia;
 
   require_once 'vendor/autoload.php';
 
   $categoria = new Categorias;
+  $noticia = new Noticia;
+
   $listaDeCategorias = $categoria->lista();
 ?>
 
@@ -41,7 +44,7 @@ use Microblog\Categorias;
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?php foreach ($listaDeCategorias as $categoria){?>
-             <li><a class="dropdown-item" href="noticias-por-categoria.php?id<?=$categoria['id']?>"><?=$categoria['nome']?></a></li>
+             <li><a class="dropdown-item" href="noticias-por-categoria.php?id=<?=$categoria['id']?>"><?=$categoria['nome']?></a></li>
             <?php } ?>
           </ul>
         </li>

@@ -270,20 +270,21 @@ final class Noticia {
     }
     
     public function listaPorCategoria() {
-        $sql = "SELECT noticias.id, noticias.titulo, noticias.data, noticias.resumo,
-                        usuarios.nome AS autor, 
-                        categorias.nome AS categoria 
-        
-                FROM noticias 
-                    LEFT JOIN usuarios ON noticias.usuario_id
-                    INNER JOIN categorias ON noticias.categoria_id = categorias.id 
-                WHERE noticias.categoria_id = :categoria.id";
+        $sql = "SELECT 
+                    noticias.id, noticias.titulo, 
+                    noticias.data, noticias.resumo,
+                    usuarios.nome AS autor,
+                    categorias.nome AS categoria
+                FROM noticias
+                    LEFT JOIN usuarios ON noticias.usuario_id = usuarios.id
+                    INNER JOIN categorias ON noticias.categoria_id = categorias.id
+                WHERE noticias.categoria_id = :categoria_id";
 
         try {
-            $consulta = $this->conexao->prepare($sql);
-            $consulta->bindParam(":categoria.id", $this->categoriaId, PDO::PARAM_INT);
+            $consulta = $this->conexao->prepare($sql); 
+            $consulta->bindParam(":categoria_id", $this->categoriaId, PDO::PARAM_INT);
             $consulta->execute();
-            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch(Exception $erro){
                 die("Erro: ".$erro->getMessage());
         }
