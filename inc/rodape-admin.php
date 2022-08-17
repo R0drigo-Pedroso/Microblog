@@ -30,3 +30,7 @@ switch($pagina){
 ?>
 </body>
 </html>
+<?php
+    /* Finaizando o monitoramento do buffer de saida (área na memória em que headers são processados) */
+    ob_end_flush();
+?>

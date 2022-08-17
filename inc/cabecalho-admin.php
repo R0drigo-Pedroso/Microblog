@@ -1,4 +1,8 @@
 <?php
+/* Inicialização do Output buffer
+Gerenciamento da memória de saida/redirecionamentos
+*/
+ob_start();
 
 use Microblog\ControleDeAcesso;
 

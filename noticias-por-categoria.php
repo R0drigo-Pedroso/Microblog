@@ -47,4 +47,3 @@ $dados = $noticia->listaPorCategoria();
 <?php 
 require_once "inc/rodape.php";
 ?>
-
